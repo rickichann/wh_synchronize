@@ -1,4 +1,4 @@
-# wh_synchronize
+# Data Synchronization
 
 <img width="723" alt="image" src="https://user-images.githubusercontent.com/53082147/231049509-99a42939-9c47-4ab2-b863-966b6e55e76c.png">
 
