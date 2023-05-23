@@ -10,3 +10,16 @@ there is an additional primary key in postgre you have to run this script first 
 ```
 ALTER TABLE table_name ADD CONSTRAINT constraint_name UNIQUE (pkey_column);
 ```
+
+
+to monitor this pipeline, create table wh_pipeline _status, fill pipeline column manually with ds_synchronize, other columns will be filled automatically when pipeline data is run.
+<img width="728" alt="image" src="https://github.com/rickichann/wh_synchronize/assets/53082147/cd3e14f8-4e1c-420d-9d8d-f72d63dfb139">
+
+```
+CREATE TABLE your_table_name (
+    pipeline VARCHAR(50),
+    status VARCHAR(20),
+    write_date DATE,
+    performances INTEGER
+);
+```
