@@ -16,16 +16,16 @@ cur_src = conn_src.cursor()
 conn_dest = psycopg2.connect('postgresql://username:password@host:port/database')
 cur_dest = conn_dest.cursor()
 
-wh_table_list = ["table_1", "table_2", "table_3"]
-primary_key_list = ["pkey_1","pkey_2","pkey_3"]
+
+# sequence process
+wh_table_list = ['table_1', 'table_2', '....']
+primary_key_list = ['pkey_1','pkey_2','....']
 # optional, u can delete this variable. and delete remove column process
-columns_to_remove = ["create_uid", "write_uid","IDExpendLevel","IDReceiptLevel","group","end"]
+columns_to_remove = ['column_1', 'column_2', '....']
 
-
-# optional if u create table for monitoring
-# cron_status
-# cur_src.execute("UPDATE wh_pipeline_status SET status = 'running' where pipeline = 'ds_synchronize_sa'")
-# conn_src.commit()
+# cron_status, optional if u create table for monitoring
+cur_src.execute("UPDATE wh_pipeline_status SET status = 'running' where pipeline = 'ds_synchronize'")
+conn_src.commit()
 
 for wh_table,primary_key in zip(wh_table_list,primary_key_list):
     flag = True
@@ -87,16 +87,15 @@ for wh_table,primary_key in zip(wh_table_list,primary_key_list):
                   flag = True
             
 
-# optional if u create table for monitoring
-# cron_status_2
-# later_time = dt.datetime.now()
-# difference = later_time - first_time
-# seconds_in_day = 24 * 60 * 60
-# save_date_cron = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
-# x_time = divmod(difference.days * seconds_in_day + difference.seconds, 60)
-# x_ms = str(round(difference.total_seconds() * (10 ** 3),2)) + ' ms'
-# cur_src.execute("UPDATE wh_pipeline_status SET status = 'done', write_date = '{}', peformance = '{}'  where pipeline = 'ds_synchronize_sa' ;".format(save_date_cron,x_ms)) 
-# conn_src.commit()
-# print(" processing_time, {}:{} seconds".format(x_time[0],x_time[1]))
+# cron_status_2, optional if u create table for monitoring.
+later_time = dt.datetime.now()
+difference = later_time - first_time
+seconds_in_day = 24 * 60 * 60
+save_date_cron = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S") 
+x_time = divmod(difference.days * seconds_in_day + difference.seconds, 60)
+x_ms = str(round(difference.total_seconds() * (10 ** 3),2)) + ' ms'
+cur_src.execute("UPDATE wh_pipeline_status SET status = 'done', write_date = '{}', peformance = '{}'  where pipeline = 'ds_synchronize' ;".format(save_date_cron,x_ms)) 
+conn_src.commit()
+print(" processing_time, {}:{} seconds".format(x_time[0],x_time[1]))
 
 print("done")
