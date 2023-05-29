@@ -20,6 +20,6 @@ CREATE TABLE your_table_name (
     pipeline VARCHAR(50),
     status VARCHAR(20),
     write_date DATE,
-    performances INTEGER
+    performances VARCHAR(20)
 );
 ```
